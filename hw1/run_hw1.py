@@ -27,14 +27,19 @@ class BC_Trainer(object):
         #######################
         ### Correcting for hydra logging folder. 
         print('Loading expert policy from...', '../../../' + self.params["env"]['expert_policy_file'])
-        self.loaded_expert_policy = LoadedGaussianPolicy( '../../../' + self.params["env"]['expert_policy_file'])
+        self.loaded_expert_policy = LoadedGaussianPolicy(os.path.join(
+            os.path.abspath("../../../"),
+            self.params["env"]['expert_policy_file']))
         print('Done restoring expert policy...')
 
     def run_training_loop(self):
 
         self.rl_trainer.run_training_loop(
             n_iter=self.params['alg']['n_iter'],
-            initial_expertdata=self.params['env']['expert_data'],
+            initial_expertdata=os.path.join(
+                os.path.abspath("../../../"),
+                self.params['env']['expert_data'],
+            ),
             collect_policy=self.rl_trainer.agent.actor,
             eval_policy=self.rl_trainer.agent.actor,
             relabel_with_expert=self.params['alg']['do_dagger'],

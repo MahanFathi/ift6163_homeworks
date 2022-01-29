@@ -18,7 +18,7 @@ alg:
   network_width: 64 # The width of the network layers
   learning_rate: 5e-3 # THe learning rate for BC
   max_replay_buffer_size: 1e5 ## Size of the replay buffer
-  use_gpu: False
+  use_gpu: True
   which_gpu: 0 # The index for the GPU (the computer you use may have more than one)
   discrete: False
   ac_dim: 0 ## This will be overridden in the code

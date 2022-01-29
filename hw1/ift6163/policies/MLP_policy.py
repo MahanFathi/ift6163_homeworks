@@ -74,14 +74,26 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
     ##################################
 
-    def get_action(self, obs: np.ndarray) -> np.ndarray:
+    def get_action(self, obs: np.ndarray, deterministic: bool = False) -> np.ndarray:
         if len(obs.shape) > 1:
             observation = obs
         else:
             observation = obs[None]
 
         # TODO return the action that the policy prescribes
-        raise NotImplementedError
+
+        obs = torch.tensor(obs, device=ptu.device, dtype=torch.float64)
+        act = None
+        if deterministic:
+            if self.discrete:
+                act = torch.argmax(self.logits_na(obs), dim=1)
+            else:
+                act = self.mean_net(obs)
+        else:
+            act = self.forward(obs).sample()
+
+        return act.cpu().detach().numpy()
+
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
@@ -93,7 +105,16 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
     # return more flexible objects, such as a
     # `torch.distributions.Distribution` object. It's up to you!
     def forward(self, observation: torch.FloatTensor) -> Any:
-        raise NotImplementedError
+        act_pred_dist = None
+        if self.discrete:
+            act_pred_dist = distributions.Categorical(logits=self.logits_na(obs))
+        else:
+            act_pred_dist = distributions.Normal(
+                self.mean_net(obs),
+                torch.exp(self.logstd)[None],
+            )
+        return act_pred_dist
+
 
 
 #####################################################
@@ -109,7 +130,25 @@ class MLPPolicySL(MLPPolicy):
             adv_n=None, acs_labels_na=None, qvals=None
     ):
         # TODO: update the policy and return the loss
-        loss = TODO
+        # loss = TODO
+
+        # practice: what if .rsample and return MSE?
+        self.optimizer.zero_grad()
+
+        obs = torch.tensor(observations, device=ptu.device, dtype=torch.float64)
+        if self.discrete:
+            act = torch.tensor(actions, device=ptu.device, dtype=torch.int)
+        else:
+            act = torch.tensor(actions, device=ptu.device, dtype=torch.float64)
+
+        # get prediction dist
+        action_pred_dist = self.forward(obs)
+
+        # form log likelihood loss
+        loss = -action_pred_dist.logprob(act).mean()
+        loss.backward()
+        self.optimizer.step()
+
         return {
             # You can add extra logging information here, but keep this line
             'Training Loss': ptu.to_numpy(loss),
