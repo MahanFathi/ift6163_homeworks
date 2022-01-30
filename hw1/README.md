@@ -1,3 +1,6 @@
+## Link to colab
+[https://colab.research.google.com/drive/1BKk4dS9gP-AoTYa3Aa1g7xvK585VD7Cr?usp=sharing](https://colab.research.google.com/drive/1BKk4dS9gP-AoTYa3Aa1g7xvK585VD7Cr?usp=sharing)
+
 ## Setup
 
 You can run this code on your own machine or on Google Colab. 
