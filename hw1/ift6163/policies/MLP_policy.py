@@ -107,10 +107,10 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
     def forward(self, observation: torch.FloatTensor) -> Any:
         act_pred_dist = None
         if self.discrete:
-            act_pred_dist = distributions.Categorical(logits=self.logits_na(observations))
+            act_pred_dist = distributions.Categorical(logits=self.logits_na(observation))
         else:
             act_pred_dist = distributions.Normal(
-                self.mean_net(observations),
+                self.mean_net(observation),
                 torch.exp(self.logstd)[None],
             )
         return act_pred_dist
