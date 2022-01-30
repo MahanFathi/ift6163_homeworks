@@ -176,8 +176,8 @@ class RL_Trainer(object):
             paths = utils.sample_n_trajectories(
                 self.env,
                 collect_policy,
-                batch_size // self.params['max_episode_length'], # number of paths
-                max_path_length=self.params['max_episode_length'],
+                batch_size // self.params['env']['max_episode_length'], # number of paths
+                max_path_length=self.params['env']['max_episode_length'],
             )
             envsteps_this_batch = sum(path['observation'].shape[0] for path in paths)
 
@@ -220,12 +220,12 @@ class RL_Trainer(object):
         # and replace paths[i]["action"] with these expert labels
         expert_paths = copy.deepcopy(paths)
         for epath in expert_paths:
-            for i, observation in range(len(epath['observation'])):
-                epath['action'][t] = expert_policy.get_action(epath['observation'][i])
+            for i in range(len(epath['observation'])):
+                epath['action'][i] = expert_policy.get_action(epath['observation'][i])
                 # below values are not valid anymore, just wanna make sure they're not used anywhere
-                epath['reward'][t] = np.nan
-                epath['next_observation'][t] = np.nan
-                epath['terminal'][t] = np.nan
+                epath['reward'][i] = np.nan
+                epath['next_observation'][i] = np.nan
+                epath['terminal'][i] = np.nan
 
         return expert_paths
 
