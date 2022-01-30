@@ -145,7 +145,7 @@ class MLPPolicySL(MLPPolicy):
         action_pred_dist = self.forward(obs)
 
         # form log likelihood loss
-        loss = -action_pred_dist.logprob(act).mean()
+        loss = -action_pred_dist.log_prob(act).mean()
         loss.backward()
         self.optimizer.step()
 
