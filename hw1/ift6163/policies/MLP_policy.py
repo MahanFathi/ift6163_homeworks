@@ -82,7 +82,7 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
         # TODO return the action that the policy prescribes
 
-        obs = torch.tensor(obs, device=ptu.device, dtype=torch.float64)
+        obs = torch.tensor(obs, device=ptu.device, dtype=torch.float)
         act = None
         if deterministic:
             if self.discrete:
@@ -107,10 +107,10 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
     def forward(self, observation: torch.FloatTensor) -> Any:
         act_pred_dist = None
         if self.discrete:
-            act_pred_dist = distributions.Categorical(logits=self.logits_na(obs))
+            act_pred_dist = distributions.Categorical(logits=self.logits_na(observations))
         else:
             act_pred_dist = distributions.Normal(
-                self.mean_net(obs),
+                self.mean_net(observations),
                 torch.exp(self.logstd)[None],
             )
         return act_pred_dist
@@ -135,11 +135,11 @@ class MLPPolicySL(MLPPolicy):
         # practice: what if .rsample and return MSE?
         self.optimizer.zero_grad()
 
-        obs = torch.tensor(observations, device=ptu.device, dtype=torch.float64)
+        obs = torch.tensor(observations, device=ptu.device, dtype=torch.float)
         if self.discrete:
             act = torch.tensor(actions, device=ptu.device, dtype=torch.int)
         else:
-            act = torch.tensor(actions, device=ptu.device, dtype=torch.float64)
+            act = torch.tensor(actions, device=ptu.device, dtype=torch.float)
 
         # get prediction dist
         action_pred_dist = self.forward(obs)
