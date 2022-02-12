@@ -18,14 +18,14 @@ alg:
   network_width: 64 # The width of the network layers
   learning_rate: 5e-3 # THe learning rate for BC
   max_replay_buffer_size: 1e5 ## Size of the replay buffer
-  use_gpu: True
+  use_gpu: False
   which_gpu: 0 # The index for the GPU (the computer you use may have more than one)
   discrete: False
   ac_dim: 0 ## This will be overridden in the code
   ob_dim: 0 ## This will be overridden in the code
 
 logging:
-  video_log_freq: 5 # How often to generate a video to log/
+  video_log_freq: -1 # How often to generate a video to log/
   scalar_log_freq: 1 # How often to log training information and run evaluation during training.
   save_params: true # Should the parameters given to the script be saved? (Always...)
   random_seed: 1234
