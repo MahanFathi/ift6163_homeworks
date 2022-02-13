@@ -223,9 +223,10 @@ class RL_Trainer(object):
             for i in range(len(epath['observation'])):
                 epath['action'][i] = expert_policy.get_action(epath['observation'][i])
                 # below values are not valid anymore, just wanna make sure they're not used anywhere
-                epath['reward'][i] = np.nan
-                epath['next_observation'][i] = np.nan
-                epath['terminal'][i] = np.nan
+                # nvm we actually need them
+                # epath['reward'][i] = np.nan
+                # epath['next_observation'][i] = np.nan
+                # epath['terminal'][i] = np.nan
 
         return expert_paths
 
