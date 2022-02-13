@@ -22,7 +22,7 @@ class BCAgent(BaseAgent):
         )
 
         # replay buffer
-        self.replay_buffer = ReplayBuffer(self.agent_params['max_replay_buffer_size'])
+        self.replay_buffer = ReplayBuffer(int(self.agent_params['max_replay_buffer_size']))
 
     def train(self, ob_no, ac_na, re_n, next_ob_no, terminal_n):
         # training a BC agent refers to updating its actor using
