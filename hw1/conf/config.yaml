@@ -12,7 +12,7 @@ alg:
   num_agent_train_steps_per_iter: 1000 # number of gradient steps for training policy (per iter in n_iter)
   n_iter: 1
   batch_size: 1000 # training data collected (in the env) during each iteration
-  eval_batch_size: 1000 # eval data collected (in the env) for logging metrics
+  eval_batch_size: 5000 # eval data collected (in the env) for logging metrics
   train_batch_size: 100 # number of sampled data points to be used per gradient/train step
   n_layers: 2 # Network depths
   network_width: 64 # The width of the network layers
