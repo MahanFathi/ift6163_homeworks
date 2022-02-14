@@ -6,7 +6,7 @@ n_iter: 10
 ensemble_size: 3
 mpc_horizon: 10
 mpc_num_action_sequences: 1000
-mpc_action_sampling_strategy: 'random'
+mpc_action_sampling_strategy: 'cem'
 cem_iterations: 4
 cem_num_elites: 5
 cem_alpha: 1
