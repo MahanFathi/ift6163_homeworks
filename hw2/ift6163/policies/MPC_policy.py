@@ -1,4 +1,5 @@
 import numpy as np
+from ift6163.infrastructure import pytorch_util as ptu
 
 from .base_policy import BasePolicy
 
@@ -87,10 +88,12 @@ class MPCPolicy(BasePolicy):
         #
         # Then, return the mean predictions across all ensembles.
         # Hint: the return value should be an array of shape (N,)
+        reward_sums = []
         for model in self.dyn_models:
-            pass
+            reward_sum = self.calculate_sum_of_rewards(obs, candidate_action_sequences, model)
+            reward_sums.append(reward_sum)
 
-        return TODO
+        return np.mean(reward_sums, axis=0)
 
     def get_action(self, obs):
         if self.data_statistics is None:
@@ -107,8 +110,10 @@ class MPCPolicy(BasePolicy):
             predicted_rewards = self.evaluate_candidate_sequences(candidate_action_sequences, obs)
 
             # pick the action sequence and return the 1st element of that sequence
-            best_action_sequence = None  # TODO (Q2)
-            action_to_take = None  # TODO (Q2)
+            # best_action_sequence = None  # TODO (Q2)
+            best_action_sequence = candidate_action_sequences[np.argmax(predicted_rewards)]
+            # action_to_take = None  # TODO (Q2)
+            action_to_take = best_action_sequence[0]
             return action_to_take[None]  # Unsqueeze the first index
 
     def calculate_sum_of_rewards(self, obs, candidate_action_sequences, model):
@@ -136,4 +141,23 @@ class MPCPolicy(BasePolicy):
         # Hint: Remember that the model can process observations and actions
         #       in batch, which can be much faster than looping through each
         #       action sequence.
+
+        num_sequences, horizon, _ = candidate_action_sequences.shape
+
+        obs = np.repeat(obs[np.newaxis, :], num_sequences, axis=0)
+        sequence_rewards = []
+        for t in range(horizon):
+            sequence_rewards.append(
+                self.env.get_reward(
+                    obs, candidate_action_sequences[:, t, :],
+                )[0]
+            )
+            obs = model.get_prediction(
+                obs,
+                candidate_action_sequences[:, t, :],
+                self.data_statistics,
+            )
+
+        sum_of_rewards = np.sum(sequence_rewards, axis=0)
+
         return sum_of_rewards

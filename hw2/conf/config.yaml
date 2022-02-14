@@ -1,8 +1,8 @@
 
-env_name: 'cheetah-ift6163-v0' # ['cheetah-ift6163-v0', 'reacher-ift6163-v0', 'obstacles-ift6163-v0' ]
+env_name: 'obstacles-ift6163-v0' # ['cheetah-ift6163-v0', 'reacher-ift6163-v0', 'obstacles-ift6163-v0' ]
 ep_len: 200
 exp_name: 'todo'
-n_iter: 1
+n_iter: 10
 ensemble_size: 3
 mpc_horizon: 10
 mpc_num_action_sequences: 1000
@@ -20,40 +20,8 @@ learning_rate: 0.001
 n_layers: 2
 size: 250
 seed: 1
-no_gpu: False
+no_gpu: True
 which_gpu: 0
 video_log_freq: -1
-scalar_log_freq: -1
-save_params: True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
+scalar_log_freq: 1
+save_params: False
