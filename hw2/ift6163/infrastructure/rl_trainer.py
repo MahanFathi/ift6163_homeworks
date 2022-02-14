@@ -177,24 +177,84 @@ class RL_Trainer(object):
     ####################################
     ####################################
 
-    def collect_training_trajectories(self, itr, initial_expertdata, collect_policy, num_transitions_to_sample, save_expert_data_to_disk=False):
+    # def collect_training_trajectories(self, itr, initial_expertdata, collect_policy, num_transitions_to_sample, save_expert_data_to_disk=False):
+        # """
+        # :param itr:
+        # :param load_initial_expertdata:  path to expert data pkl file
+        # :param collect_policy:  the current policy using which we collect data
+        # :param num_transitions_to_sample:  the number of transitions we collect
+        # :return:
+        #     paths: a list trajectories
+        #     envsteps_this_batch: the sum over the numbers of environment steps in paths
+        #     train_video_paths: paths which also contain videos for visualization purposes
+        # """
+        # TODO: get this from previous assignment
+
+    def collect_training_trajectories(
+            self,
+            itr,
+            load_initial_expertdata,
+            collect_policy,
+            batch_size,
+    ):
         """
         :param itr:
         :param load_initial_expertdata:  path to expert data pkl file
         :param collect_policy:  the current policy using which we collect data
-        :param num_transitions_to_sample:  the number of transitions we collect
+        :param batch_size:  the number of transitions we collect
         :return:
             paths: a list trajectories
             envsteps_this_batch: the sum over the numbers of environment steps in paths
             train_video_paths: paths which also contain videos for visualization purposes
         """
-        # TODO: get this from previous assignment
+
+        # TODO decide whether to load training data or use the current policy to collect more data
+        # HINT: depending on if it's the first iteration or not, decide whether to either
+                # (1) load the data. In this case you can directly return as follows
+                # ``` return loaded_paths, 0, None ```
+
+                # (2) collect `self.params['batch_size']` transitions
+
+        # TODO collect `batch_size` samples to be used for training
+        # HINT1: use sample_trajectories from utils
+        # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
+        print("\nCollecting data to be used for training...")
+
+        # paths, envsteps_this_batch = TODO
+        if itr == 0 and load_initial_expertdata is not None:
+            with open(load_initial_expertdata, 'rb') as f:
+                paths = pickle.load(f)
+            envsteps_this_batch = 0 # assume no interactions w/ env so far
+            return paths, envsteps_this_batch, None
+
+        paths = utils.sample_n_trajectories(
+            self.env,
+            collect_policy,
+            batch_size // self.params['ep_len'], # number of paths
+            max_path_length=self.params['ep_len'],
+        )
+        envsteps_this_batch = sum(path['observation'].shape[0] for path in paths)
+
+
+        # collect more rollouts with the same policy, to be saved as videos in tensorboard
+        # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
+        train_video_paths = None
+        if self.logvideo:
+            print('\nCollecting train rollouts to be used for saving videos...')
+            ## TODO look in utils and implement sample_n_trajectories
+            train_video_paths = utils.sample_n_trajectories(self.env, collect_policy, MAX_NVIDEO, MAX_VIDEO_LEN, True)
 
         return paths, envsteps_this_batch, train_video_paths
 
+
     def train_agent(self):
-        print('TODO')
-    # TODO: get this from previous assignment
+        print('\nTraining agent using sampled data from replay buffer...')
+        all_logs = []
+        for train_step in range(self.params['num_agent_train_steps_per_iter']):
+            ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = self.agent.sample(self.params['train_batch_size'])
+            train_log = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch) # same signature
+            all_logs.append(train_log)
+        return all_logs
 
     ####################################
     ####################################
