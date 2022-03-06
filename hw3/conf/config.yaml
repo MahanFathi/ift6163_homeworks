@@ -1,0 +1,79 @@
+
+env_name: 'CartPole-v0' # ['cheetah-ift6163-v0', 'reacher-ift6163-v0', 'obstacles-ift6163-v0' ]
+ep_len: 200
+exp_name: 'todo'
+n_iter: 1
+mpc_horizon: 10
+mpc_num_action_sequences: 1000
+mpc_action_sampling_strategy: 'random'
+cem_iterations: 4
+cem_num_elites: 5
+cem_alpha: 1
+add_sl_noise: True
+batch_size_initial: 5000
+batch_size: 8000
+train_batch_size: 512
+eval_batch_size: 400
+seed: 1
+no_gpu: False
+which_gpu: 0
+video_log_freq: -1
+scalar_log_freq: -1
+save_params: True
+rl_alg: 'todo'
+
+computation_graph_args:
+   learning_rate: 0.001
+   n_layers: 2
+   size: 128
+   ensemble_size: 3
+   num_grad_steps_per_target_update: 1
+   num_target_updates: 1
+   
+estimate_advantage_args:
+   discount: 0.95
+   gae_lambda: 0.9
+   standardize_advantages: False
+   reward_to_go: True
+   nn_baseline: False
+   
+train_args:
+   num_agent_train_steps_per_iter: 1
+   num_critic_updates_per_agent_update: 1
+   num_actor_updates_per_agent_update: 1
+   discrete: False
+   ob_dim:  0
+   ac_dim: 0
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
