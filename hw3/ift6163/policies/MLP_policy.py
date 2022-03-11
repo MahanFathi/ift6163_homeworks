@@ -216,4 +216,14 @@ class MLPPolicyPG(MLPPolicy):
 class MLPPolicyAC(MLPPolicy):
     def update(self, observations, actions, adv_n=None):
         # TODO: update the policy and return the loss
+        observations = ptu.from_numpy(observations)
+        actions = ptu.from_numpy(actions)
+        advantages = ptu.from_numpy(adv_n)
+
+        self.optimizer.zero_grad()
+        ac = self.forward(observations)
+        loss = -torch.sum(advantages * ac.log_prob(actions))
+        loss.backward()
+        self.optimizer.step()
+
         return loss.item()
