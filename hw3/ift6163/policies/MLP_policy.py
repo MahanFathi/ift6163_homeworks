@@ -9,6 +9,7 @@ import torch
 from torch import distributions
 
 from ift6163.infrastructure import pytorch_util as ptu
+from ift6163.infrastructure.utils import normalize
 from ift6163.policies.base_policy import BasePolicy
 
 
