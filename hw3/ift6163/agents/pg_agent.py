@@ -124,10 +124,10 @@ class PGAgent(BaseAgent):
                         ## GAE formula
                     # y=45 ## Remove: This is just to help with compiling
                     if terminals[i]==1:
-                        advantages[i] = rews[i]-values[i]
+                        advantages[i] = rews[i] - values[i]
                     else:
-                        advantages[i] = rews[i]+self.gamma*values[i+1]-values[i]
-                        advantages[i] += self.gamma*self.gae_lambda*advantages[i+1]
+                        advantages[i] = rews[i] + self.gamma*values[i + 1] - values[i]
+                        advantages[i] += self.gamma * self.gae_lambda * advantages[i + 1]
 
                 # remove dummy advantage
                 advantages = advantages[:-1]
