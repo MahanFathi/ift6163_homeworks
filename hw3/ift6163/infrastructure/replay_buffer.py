@@ -77,6 +77,8 @@ class ReplayBuffer(object):
                 index -=1
                 num_recent_rollouts_to_return +=1
                 num_datapoints_so_far += get_pathlength(recent_rollout)
+                if index < -len(self.paths):
+                    index = -1 # to handle cases in which there's not enough data in replay buffer
             rollouts_to_return = self.paths[-num_recent_rollouts_to_return:]
             observations, actions, next_observations, terminals, concatenated_rews, unconcatenated_rews = convert_listofrollouts(rollouts_to_return)
             return observations, actions, unconcatenated_rews, next_observations, terminals
