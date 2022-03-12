@@ -171,9 +171,12 @@ class PGAgent(BaseAgent):
         """
 
         # TODO: create list_of_discounted_returns
-        discounted_returns = np.array([(self.gamma ** i) * rewards[i] for i in range(len(rewards))])
-        total_return= np.sum(discounted_returns)
-        list_of_discounted_returns = [total_return] * len(rewards)
+        discounted_return = functools.reduce(
+            lambda ret, reward: ret * self.gamma + reward,
+            reversed(rewards),
+        )
+        list_of_discounted_returns =  [discounted_return] * len(rewards)
+
         return list_of_discounted_returns
 
     def _discounted_cumsum(self, rewards):
@@ -186,11 +189,7 @@ class PGAgent(BaseAgent):
         # TODO: create `list_of_discounted_returns`
         # HINT: it is possible to write a vectorized solution, but a solution
             # using a for loop is also fine
-        discounted_returns = np.array([(self.gamma ** i) * rewards[i] for i in range(len(rewards))])
-        total_return= np.sum(discounted_returns)
-        list_of_discounted_cumsums = [total_return] * len(rewards)
-        for i in range(1, len(rewards)):
-            list_of_discounted_cumsums[i] -= discounted_returns[i - 1]
-            list_of_discounted_cumsums[i] /= self.gamma ** i
+        list_of_discounted_cumsums = list(
+            accumulate(reversed(rewards), lambda ret, reward: ret * self.gamma + reward))[::-1]
 
         return list_of_discounted_cumsums
