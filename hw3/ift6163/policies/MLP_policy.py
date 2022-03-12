@@ -86,7 +86,7 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
     ##################################
 
     # query the policy with observation(s) to get selected action(s)
-    def get_action(self, obs: np.ndarray, deterministic: bool = False) -> np.ndarray:
+    def get_action(self, obs: np.ndarray) -> np.ndarray:
         # TODO: get this from HW1
         if len(obs.shape) > 1:
             observation = obs
@@ -95,17 +95,12 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
         # TODO return the action that the policy prescribes
 
-        obs = torch.tensor(obs, device=ptu.device, dtype=torch.float)
-        act = None
-        if deterministic:
-            if self.discrete:
-                act = torch.argmax(self.logits_na(obs), dim=1)
-            else:
-                act = self.mean_net(obs)
-        else:
-            act = self.forward(obs).sample()
-
-        return act.cpu().detach().numpy()
+        obs = ptu.from_numpy(obs)
+        with torch.no_grad():
+            ac = self(obs).sample()
+            # print(ac)
+        ac = ptu.to_numpy(ac)
+        return ac
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):
@@ -156,10 +151,8 @@ class MLPPolicyPG(MLPPolicy):
         # HINT4: use self.optimizer to optimize the loss. Remember to
             # 'zero_grad' first
 
-        actions_distribution = self.forward(observations)
-        log_probs = actions_distribution.log_prob(actions)
-        assert log_probs.size() == advantages.size()
-        loss = -(log_probs * advantages).sum()
+        ac = self.forward(observations)
+        loss = -torch.sum(advantages * ac.log_prob(actions))
 
         # TODO: optimize `loss` using `self.optimizer`
         # HINT: remember to `zero_grad` first
@@ -183,7 +176,7 @@ class MLPPolicyPG(MLPPolicy):
 
             predictions = self.baseline(observations).squeeze()
 
-            baseline_loss = F.mse_loss(predictions, targets)
+            baseline_loss = self.baseline_loss(predictions, targets)
 
             self.baseline_optimizer.zero_grad()
             baseline_loss.backward()
