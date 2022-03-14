@@ -162,8 +162,8 @@ class RL_Trainer(object):
             all_logs = self.train_agent()
 
             # if there is a model, log model predictions
-            if isinstance(self.agent, MBAgent) and itr == 0:
-                self.log_model_predictions(itr, all_logs)
+            # if isinstance(self.agent, MBAgent) and itr == 0:
+                # self.log_model_predictions(itr, all_logs)
 
             # log/save
             if self.logvideo or self.logmetrics:
