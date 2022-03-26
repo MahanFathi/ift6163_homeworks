@@ -13,8 +13,8 @@ seed: 1
 no_gpu: False
 which_gpu: 0
 video_log_freq: -1
-scalar_log_freq: -1
-save_params: True
+scalar_log_freq: 1
+save_params: False
 rl_alg: 'dqn' ## RL training algorithm ['dqn', 'ddpg', 'td3']
 learning_starts: 1024  ## How much initial experience to collect before training begins
 learning_freq: 0 
