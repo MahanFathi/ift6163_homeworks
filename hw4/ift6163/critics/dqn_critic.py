@@ -87,7 +87,8 @@ class DQNCritic(BaseCritic):
             # and page 4 of https://arxiv.org/pdf/1509.06461.pdf is also a good reference.
             # TODO
             ac_idx = torch.argmax(qa_t_values, dim=1)
-            q_tp1 = qa_tp1_values[ac_idx]
+            # q_tp1 = qa_tp1_values[ac_idx]
+            q_tp1 = torch.gather(qa_tp1_values, 1, ac_idx.unsqueeze(1)).squeeze(1)
         else:
             q_tp1, _ = qa_tp1_values.max(dim=1)
 
@@ -95,7 +96,7 @@ class DQNCritic(BaseCritic):
         # HINT: as you saw in lecture, this would be:
             #currentReward + self.gamma * qValuesOfNextTimestep * (not terminal)
         # target = TODO
-        target = reward_n + self.gamma + q_tp1* (1-terminal_n)
+        target = reward_n + self.gamma + q_tp1 * (1 - terminal_n)
         target = target.detach()
 
         assert q_t_values.shape == target.shape
@@ -119,6 +120,6 @@ class DQNCritic(BaseCritic):
     def qa_values(self, obs):
         obs = ptu.from_numpy(obs)
         qa_values = self.q_net(obs)
-        if self.double_q:
-            qa_values = qa_values.view(-1,2,self.ac_dim)
+        # if self.double_q:
+        #     qa_values = qa_values.view(-1,2,self.ac_dim) # ???
         return ptu.to_numpy(qa_values)
