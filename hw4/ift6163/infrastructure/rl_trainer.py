@@ -53,6 +53,8 @@ class RL_Trainer(object):
         # Make the gym environment
         register_custom_envs()
         self.env = gym.make(self.params['env_name'])
+        if params['env_name'] in ['InvertedPendulum-v2', 'HalfCheetah-v2']:
+            self.params['env_wrappers'] = lambda x: x
         if 'env_wrappers' in self.params:
             # These operations are currently only for Atari envs
             self.env = wrappers.Monitor(
@@ -191,6 +193,8 @@ class RL_Trainer(object):
                 print('\nBeginning logging procedure...')
                 if isinstance(self.agent, DQNAgent):
                     self.perform_dqn_logging(all_logs)
+                elif isinstance(self.agent, DDPGAgent):
+                    self.perform_ddpg_logging(all_logs)
                 else:
                     self.perform_logging(itr, paths, eval_policy, train_video_paths, all_logs)
 
@@ -275,40 +279,77 @@ class RL_Trainer(object):
 
         self.logger.flush()
         
-    def perform_ddpg_logging(self):
-        
+    def perform_ddpg_logging(self, all_logs):
+        last_log = all_logs[-1]
+
+        episode_rewards = get_wrapper_by_name(self.env, "Monitor").get_episode_rewards()
+        if len(episode_rewards) > 0:
+            self.mean_episode_reward = np.mean(episode_rewards[-100:])
+        if len(episode_rewards) > 100:
+            self.best_mean_episode_reward = max(self.best_mean_episode_reward, self.mean_episode_reward)
+
         logs = OrderedDict()
-        logs['QF Loss'] = np.mean(ptu.get_numpy(qf_loss))
-        logs['Policy Loss'] = np.mean(ptu.get_numpy(
-            policy_loss
-        ))
-        logs['Raw Policy Loss'] = np.mean(ptu.get_numpy(
-            raw_policy_loss
-        ))
-        logs['Preactivation Policy Loss'] = (
-                logs['Policy Loss'] -
-                logs['Raw Policy Loss']
-        )
-        logs.update(create_stats_ordered_dict(
-            'Q Predictions',
-            ptu.get_numpy(q_pred),
-        ))
-        logs.update(create_stats_ordered_dict(
-            'Q Targets',
-            ptu.get_numpy(q_target),
-        ))
-        logs.update(create_stats_ordered_dict(
-            'Bellman Errors',
-            ptu.get_numpy(bellman_errors),
-        ))
-        logs.update(create_stats_ordered_dict(
-            'Policy Action',
-            ptu.get_numpy(policy_actions),
-        ))
-        
+
+        logs["Train_EnvstepsSoFar"] = self.agent.t
+        print("Timestep %d" % (self.agent.t,))
+        if self.mean_episode_reward > -5000:
+            logs["Train_AverageReturn"] = np.mean(self.mean_episode_reward)
+        print("mean reward (100 episodes) %f" % self.mean_episode_reward)
+        if self.best_mean_episode_reward > -5000:
+            logs["Train_BestReturn"] = np.mean(self.best_mean_episode_reward)
+        print("best mean reward %f" % self.best_mean_episode_reward)
+
+        if self.start_time is not None:
+            time_since_start = (time.time() - self.start_time)
+            print("running time %f" % time_since_start)
+            logs["TimeSinceStart"] = time_since_start
+
+        print("kIiiiiiiiiir")
+        print(logs)
+        print(last_log)
+        logs.update(last_log)
+
+        sys.stdout.flush()
+
         for key, value in logs.items():
-                print('{} : {}'.format(key, value))
-                self.logger.log_scalar(value, key, itr)
+            print('{} : {}'.format(key, value))
+            self.logger.log_scalar(value, key, self.agent.t)
+        print('Done logging...\n\n')
+
+        self.logger.flush()
+
+        # logs = OrderedDict()
+        # logs['QF Loss'] = np.mean(ptu.get_numpy(qf_loss))
+        # logs['Policy Loss'] = np.mean(ptu.get_numpy(
+        #     policy_loss
+        # ))
+        # logs['Raw Policy Loss'] = np.mean(ptu.get_numpy(
+        #     raw_policy_loss
+        # ))
+        # logs['Preactivation Policy Loss'] = (
+        #         logs['Policy Loss'] -
+        #         logs['Raw Policy Loss']
+        # )
+        # logs.update(create_stats_ordered_dict(
+        #     'Q Predictions',
+        #     ptu.get_numpy(q_pred),
+        # ))
+        # logs.update(create_stats_ordered_dict(
+        #     'Q Targets',
+        #     ptu.get_numpy(q_target),
+        # ))
+        # logs.update(create_stats_ordered_dict(
+        #     'Bellman Errors',
+        #     ptu.get_numpy(bellman_errors),
+        # ))
+        # logs.update(create_stats_ordered_dict(
+        #     'Policy Action',
+        #     ptu.get_numpy(policy_actions),
+        # ))
+
+        # for key, value in logs.items():
+        #         print('{} : {}'.format(key, value))
+        #         self.logger.log_scalar(value, key, itr)
 
     def perform_logging(self, itr, paths, eval_policy, train_video_paths, all_logs):
 

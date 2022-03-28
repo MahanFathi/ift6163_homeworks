@@ -97,7 +97,10 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
 
         obs = ptu.from_numpy(obs)
         with torch.no_grad():
-            ac = self(obs).sample()
+            if self._deterministic:
+                ac = self(obs)
+            else:
+                ac = self(obs).sample()
             # print(ac)
         ac = ptu.to_numpy(ac)
         return ac
@@ -119,7 +122,10 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         else:
             if self._deterministic:
                 ##  TODO output for a deterministic policy
-                action_distribution = TODO
+                # action_distribution = TODO
+                batch_mean = self._mean_net(observation)
+                # action_distribution = distributions.Normal(batch_mean, torch.Tensor([1e-5]))
+                action_distribution = batch_mean
             else:
                 batch_mean = self._mean_net(observation)
                 scale_tril = torch.diag(torch.exp(self._logstd))
@@ -235,8 +241,14 @@ class MLPPolicyDeterministic(MLPPolicy):
         kwargs['deterministic'] = True
         super().__init__(*args, **kwargs)
         
-    def update(self, observations, q_fun):
+    def update(self, obs, q_fun):
         # TODO: update the policy and return the loss
         ## Hint you will need to use the q_fun for the loss
         ## Hint: do not update the parameters for q_fun in the loss
+
+        obs = ptu.from_numpy(obs)
+        loss = -q_fun.q_net(obs, torch.tanh(self(obs))).mean()
+        self._optimizer.zero_grad()
+        loss.backward()
+        self._optimizer.step()
         return loss.item()

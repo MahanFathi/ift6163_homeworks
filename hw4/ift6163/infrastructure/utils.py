@@ -55,7 +55,6 @@ def mean_squared_error(a, b):
 ############################################
 
 def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('rgb_array')):
-    print('TODO')
     # TODO: get this from previous assignment
     ob = env.reset()
 
