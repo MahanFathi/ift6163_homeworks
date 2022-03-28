@@ -1,3 +1,4 @@
+from pprint import pprint
 from collections import OrderedDict
 import pickle
 import os
@@ -15,6 +16,7 @@ from ift6163.infrastructure.logger import Logger
 
 from ift6163.agents.dqn_agent import DQNAgent
 from ift6163.agents.ddpg_agent import DDPGAgent
+from ift6163.agents.td3_agent import TD3Agent
 from ift6163.infrastructure.dqn_utils import (
         get_wrapper_by_name,
         register_custom_envs,
@@ -53,6 +55,7 @@ class RL_Trainer(object):
         # Make the gym environment
         register_custom_envs()
         self.env = gym.make(self.params['env_name'])
+        self.eval_env = gym.make(self.params['env_name'])
         if params['env_name'] in ['InvertedPendulum-v2', 'HalfCheetah-v2']:
             self.params['env_wrappers'] = lambda x: x
         if 'env_wrappers' in self.params:
@@ -195,6 +198,9 @@ class RL_Trainer(object):
                     self.perform_dqn_logging(all_logs)
                 elif isinstance(self.agent, DDPGAgent):
                     self.perform_ddpg_logging(all_logs)
+                    # self.perform_ddpg_logging_eval(all_logs)
+                elif isinstance(self.agent, TD3Agent):
+                    self.perform_ddpg_logging(all_logs)
                 else:
                     self.perform_logging(itr, paths, eval_policy, train_video_paths, all_logs)
 
@@ -278,7 +284,8 @@ class RL_Trainer(object):
         print('Done logging...\n\n')
 
         self.logger.flush()
-        
+
+
     def perform_ddpg_logging(self, all_logs):
         last_log = all_logs[-1]
 
@@ -306,8 +313,20 @@ class RL_Trainer(object):
 
         logs.update(last_log)
 
+        sys.stdout.flush()
+
+        for key, value in logs.items():
+            print('{} : {}'.format(key, value))
+            self.logger.log_scalar(value, key, self.agent.t)
+        print('Done logging...\n\n')
+
+        self.logger.flush()
+        
+    def perform_ddpg_logging_eval(self, all_logs):
+        last_log = all_logs[-1]
+
         # eval
-        eval_paths, eval_envsteps_this_batch = utils.sample_trajectories(self.env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
+        eval_paths, eval_envsteps_this_batch = utils.sample_trajectories(self.env, self.agent.actor, self.params['eval_batch_size'], self.params['ep_len'])
         eval_returns = [eval_path["reward"].sum() for eval_path in eval_paths]
 
         eval_ep_lens = [len(eval_path["reward"]) for eval_path in eval_paths]
@@ -329,38 +348,6 @@ class RL_Trainer(object):
 
         self.logger.flush()
 
-        # logs = OrderedDict()
-        # logs['QF Loss'] = np.mean(ptu.get_numpy(qf_loss))
-        # logs['Policy Loss'] = np.mean(ptu.get_numpy(
-        #     policy_loss
-        # ))
-        # logs['Raw Policy Loss'] = np.mean(ptu.get_numpy(
-        #     raw_policy_loss
-        # ))
-        # logs['Preactivation Policy Loss'] = (
-        #         logs['Policy Loss'] -
-        #         logs['Raw Policy Loss']
-        # )
-        # logs.update(create_stats_ordered_dict(
-        #     'Q Predictions',
-        #     ptu.get_numpy(q_pred),
-        # ))
-        # logs.update(create_stats_ordered_dict(
-        #     'Q Targets',
-        #     ptu.get_numpy(q_target),
-        # ))
-        # logs.update(create_stats_ordered_dict(
-        #     'Bellman Errors',
-        #     ptu.get_numpy(bellman_errors),
-        # ))
-        # logs.update(create_stats_ordered_dict(
-        #     'Policy Action',
-        #     ptu.get_numpy(policy_actions),
-        # ))
-
-        # for key, value in logs.items():
-        #         print('{} : {}'.format(key, value))
-        #         self.logger.log_scalar(value, key, itr)
 
     def perform_logging(self, itr, paths, eval_policy, train_video_paths, all_logs):
 
@@ -370,7 +357,7 @@ class RL_Trainer(object):
 
         # collect eval trajectories, for logging
         print("\nCollecting data for eval...")
-        eval_paths, eval_envsteps_this_batch = utils.sample_trajectories(self.env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
+        eval_paths, eval_envsteps_this_batch = utils.sample_trajectories(self.eval_env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
 
         # save eval rollouts as videos in tensorboard event file
         if self.logvideo and train_video_paths != None:

@@ -13,7 +13,7 @@ seed: 1
 no_gpu: True
 which_gpu: 0
 video_log_freq: -1
-scalar_log_freq: 1
+scalar_log_freq: 1000
 save_params: False
 rl_alg: 'dqn' ## RL training algorithm ['dqn', 'ddpg', 'td3']
 learning_starts: 5000  ## How much initial experience to collect before training begins
@@ -38,4 +38,4 @@ n_iter: 1000
 polyak_avg: 0.01 ##
 td3_target_policy_noise: 0.1 ##
 exploration_noise: 0.1 ##
-policy_update_frequency: 5
+policy_update_frequency: 100
