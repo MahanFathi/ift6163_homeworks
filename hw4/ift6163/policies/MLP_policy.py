@@ -99,6 +99,7 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         with torch.no_grad():
             if self._deterministic:
                 ac = self(obs)
+                ac = torch.tanh(ac)
             else:
                 ac = self(obs).sample()
             # print(ac)

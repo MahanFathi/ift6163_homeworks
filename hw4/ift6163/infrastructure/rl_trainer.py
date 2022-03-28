@@ -304,10 +304,21 @@ class RL_Trainer(object):
             print("running time %f" % time_since_start)
             logs["TimeSinceStart"] = time_since_start
 
-        print("kIiiiiiiiiir")
-        print(logs)
-        print(last_log)
         logs.update(last_log)
+
+        # eval
+        eval_paths, eval_envsteps_this_batch = utils.sample_trajectories(self.env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
+        eval_returns = [eval_path["reward"].sum() for eval_path in eval_paths]
+
+        eval_ep_lens = [len(eval_path["reward"]) for eval_path in eval_paths]
+
+        # decide what to log
+        logs = OrderedDict()
+        logs["Eval_AverageReturn"] = np.mean(eval_returns)
+        logs["Eval_StdReturn"] = np.std(eval_returns)
+        logs["Eval_MaxReturn"] = np.max(eval_returns)
+        logs["Eval_MinReturn"] = np.min(eval_returns)
+        logs["Eval_AverageEpLen"] = np.mean(eval_ep_lens)
 
         sys.stdout.flush()
 

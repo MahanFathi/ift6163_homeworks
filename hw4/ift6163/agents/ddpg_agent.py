@@ -66,15 +66,13 @@ class DDPGAgent(object):
         # TODO add noise to the deterministic policy
         # perform_random_action = TODO
         eps = 0.1 # let's exploit 90% of the times and explore for the rest
-        # perform_random_action = (np.random.random()<eps) or (self.t<self.learning_starts)
-        # if perform_random_action:
-        #     action = self.env.action_space.sample()
-        # else:
-        action = np.tanh(self.actor.get_action(self.replay_buffer.encode_recent_observation()))
-        print("action:")
-        print(action)
-        action += np.random.normal(0.0, self.exploration_noise)
-        action = np.clip(action, -1.0, 1.0)
+        perform_random_action = (np.random.random()<eps) or (self.t<self.learning_starts)
+        if perform_random_action:
+            action = self.env.action_space.sample()
+        else:
+            action = self.actor.get_action(self.replay_buffer.encode_recent_observation())
+            action += np.random.normal(0.0, self.exploration_noise, size=action.shape[0])
+            action = np.clip(action, -1.0, 1.0)
         # NOTE: we don't add noise to the action anymore (not the case in TD3)
         # HINT: take random action 
 
