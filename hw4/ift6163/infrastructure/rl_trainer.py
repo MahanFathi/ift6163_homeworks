@@ -55,9 +55,9 @@ class RL_Trainer(object):
         # Make the gym environment
         register_custom_envs()
         self.env = gym.make(self.params['env_name'])
-        self.eval_env = gym.make(self.params['env_name'])
-        if params['env_name'] in ['InvertedPendulum-v2', 'HalfCheetah-v2']:
-            self.params['env_wrappers'] = lambda x: x
+        # self.eval_env = gym.make(self.params['env_name'])
+        # if params['env_name'] in ['InvertedPendulum-v2', 'HalfCheetah-v2']:
+            # self.params['env_wrappers'] = lambda x: x
         if 'env_wrappers' in self.params:
             # These operations are currently only for Atari envs
             self.env = wrappers.Monitor(
@@ -197,8 +197,8 @@ class RL_Trainer(object):
                 if isinstance(self.agent, DQNAgent):
                     self.perform_dqn_logging(all_logs)
                 elif isinstance(self.agent, DDPGAgent):
-                    self.perform_ddpg_logging(all_logs)
-                    # self.perform_ddpg_logging_eval(all_logs)
+                    # self.perform_ddpg_logging(all_logs)
+                    self.perform_ddpg_logging_eval(all_logs)
                 elif isinstance(self.agent, TD3Agent):
                     self.perform_ddpg_logging(all_logs)
                 else:
