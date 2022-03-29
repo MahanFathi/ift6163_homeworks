@@ -44,7 +44,7 @@ class DDPGAgent(object):
         self.t = 1
         self.num_param_updates = 0
         self.policy_update_frequency = self.agent_params['policy_update_frequency']
-        self.exploration_noise = self.agent_params['exploration_noise']
+        self.exploration_noise = self.agent_params['td3_target_policy_noise']
         
     def add_to_replay_buffer(self, paths):
         pass
