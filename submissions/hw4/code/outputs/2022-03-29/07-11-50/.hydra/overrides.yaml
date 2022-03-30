@@ -1,0 +1,4 @@
+- env_name=LunarLander-v3
+- exp_name=q2_doubledqn_1
+- seed=1
+- n_iter=150000

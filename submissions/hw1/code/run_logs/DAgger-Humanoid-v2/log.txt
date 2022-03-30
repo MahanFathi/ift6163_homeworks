@@ -1,0 +1,420 @@
+[=== Module python/3.7 loaded ===]
+[=== Module cudatoolkit/10.2 loaded ===]
+[=== Module cuda/10.2/cudnn/8.0 loaded ===]
+[=== Module mujoco/2.0 loaded ===]
+[=== Module mujoco-py/2.0 loaded ===]
+
+The following have been reloaded with a version change:
+  1) gcc/7.4.0 => gcc/9.3.0
+
+env:
+  expert_policy_file: ./ift6163/policies/experts/Humanoid.pkl
+  expert_data: ./ift6163/expert_data/expert_data_Humanoid-v2.pkl
+  exp_name: DAgger-Humanoid-v2
+  env_name: Humanoid-v2
+  max_episode_length: 1000
+  render: false
+alg:
+  num_rollouts: 5
+  do_dagger: true
+  num_agent_train_steps_per_iter: 5000
+  n_iter: 10
+  batch_size: 1024
+  eval_batch_size: 5000
+  train_batch_size: 100
+  n_layers: 3
+  network_width: 64
+  learning_rate: 0.005
+  max_replay_buffer_size: 100000.0
+  use_gpu: true
+  which_gpu: 0
+  discrete: false
+  ac_dim: 0
+  ob_dim: 0
+logging:
+  video_log_freq: -1
+  scalar_log_freq: 1
+  save_params: true
+  random_seed: 1234
+
+Command Dir: /home/mila/m/mahan.fathi/UC/ift6163_homeworks/hw1/outputs/2022-02-14/18-34-48
+params:  {'_metadata': ContainerMetadata(ref_type=typing.Any, object_type=None, optional=True, key=None, flags={'struct': True}, flags_root=False, resolver_cache=defaultdict(<class 'dict'>, {'now': {('%Y-%m-%d',): '2022-02-14', ('%H-%M-%S',): '18-34-48'}}), key_type=typing.Any, element_type=typing.Any), '_parent': None, '_flags_cache': {'struct': True}, '_content': {'env': {'expert_policy_file': './ift6163/policies/experts/Humanoid.pkl', 'expert_data': './ift6163/expert_data/expert_data_Humanoid-v2.pkl', 'exp_name': 'DAgger-Humanoid-v2', 'env_name': 'Humanoid-v2', 'max_episode_length': 1000, 'render': False}, 'alg': {'num_rollouts': 5, 'do_dagger': True, 'num_agent_train_steps_per_iter': 5000, 'n_iter': 10, 'batch_size': 1024, 'eval_batch_size': 5000, 'train_batch_size': 100, 'n_layers': 3, 'network_width': 64, 'learning_rate': 0.005, 'max_replay_buffer_size': 100000.0, 'use_gpu': True, 'which_gpu': 0, 'discrete': False, 'ac_dim': 0, 'ob_dim': 0}, 'logging': {'video_log_freq': -1, 'scalar_log_freq': 1, 'save_params': True, 'random_seed': 1234}}}
+params2:  {'env': {'expert_policy_file': './ift6163/policies/experts/Humanoid.pkl', 'expert_data': './ift6163/expert_data/expert_data_Humanoid-v2.pkl', 'exp_name': 'DAgger-Humanoid-v2', 'env_name': 'Humanoid-v2', 'max_episode_length': 1000, 'render': False}, 'alg': {'num_rollouts': 5, 'do_dagger': True, 'num_agent_train_steps_per_iter': 5000, 'n_iter': 10, 'batch_size': 1024, 'eval_batch_size': 5000, 'train_batch_size': 100, 'n_layers': 3, 'network_width': 64, 'learning_rate': 0.005, 'max_replay_buffer_size': 100000.0, 'use_gpu': True, 'which_gpu': 0, 'discrete': False, 'ac_dim': 0, 'ob_dim': 0}, 'logging': {'video_log_freq': -1, 'scalar_log_freq': 1, 'save_params': True, 'random_seed': 1234, 'logdir': '/home/mila/m/mahan.fathi/UC/ift6163_homeworks/hw1/outputs/2022-02-14/18-34-48/data/q2_DAgger-Humanoid-v2_Humanoid-v2_14-02-2022_18-34-48'}}
+params:  3
+########################
+logging outputs to  /home/mila/m/mahan.fathi/UC/ift6163_homeworks/hw1/outputs/2022-02-14/18-34-48/data/q2_DAgger-Humanoid-v2_Humanoid-v2_14-02-2022_18-34-48
+########################
+Using GPU id 0
+Loading expert policy from... ../../.././ift6163/policies/experts/Humanoid.pkl
+obs (1, 376) (1, 376)
+Done restoring expert policy...
+
+
+********** Iteration 0 ************
+
+Collecting data to be used for training...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 298.6148376464844
+Eval_StdReturn : 70.60577392578125
+Eval_MaxReturn : 650.8221435546875
+Eval_MinReturn : 184.75836181640625
+Eval_AverageEpLen : 56.29213483146067
+Train_AverageReturn : 10344.517578125
+Train_StdReturn : 20.9814453125
+Train_MaxReturn : 10365.4990234375
+Train_MinReturn : 10323.5361328125
+Train_AverageEpLen : 1000.0
+Train_EnvstepsSoFar : 0
+TimeSinceStart : 19.97438383102417
+Training Loss : 0.2987441420555115
+[2022-02-14 18:35:32,108][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 1 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 270.49957275390625
+Eval_StdReturn : 69.61026763916016
+Eval_MaxReturn : 475.04559326171875
+Eval_MinReturn : 161.48475646972656
+Eval_AverageEpLen : 52.90526315789474
+Train_AverageReturn : 231.78836059570312
+Train_StdReturn : 0.0
+Train_MaxReturn : 231.78836059570312
+Train_MinReturn : 231.78836059570312
+Train_AverageEpLen : 43.0
+Train_EnvstepsSoFar : 43
+TimeSinceStart : 39.36685657501221
+Training Loss : 0.1484147161245346
+[2022-02-14 18:35:51,500][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 2 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 302.0624694824219
+Eval_StdReturn : 40.1070556640625
+Eval_MaxReturn : 436.2478332519531
+Eval_MinReturn : 232.39537048339844
+Eval_AverageEpLen : 55.58888888888889
+Train_AverageReturn : 171.84213256835938
+Train_StdReturn : 0.0
+Train_MaxReturn : 171.84213256835938
+Train_MinReturn : 171.84213256835938
+Train_AverageEpLen : 36.0
+Train_EnvstepsSoFar : 79
+TimeSinceStart : 59.51978635787964
+Training Loss : 0.1713458150625229
+[2022-02-14 18:36:11,653][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 3 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 303.1294250488281
+Eval_StdReturn : 56.208351135253906
+Eval_MaxReturn : 485.7432556152344
+Eval_MinReturn : 232.94285583496094
+Eval_AverageEpLen : 56.95454545454545
+Train_AverageReturn : 282.634033203125
+Train_StdReturn : 0.0
+Train_MaxReturn : 282.634033203125
+Train_MinReturn : 282.634033203125
+Train_AverageEpLen : 53.0
+Train_EnvstepsSoFar : 132
+TimeSinceStart : 79.6519935131073
+Training Loss : 0.2563389539718628
+[2022-02-14 18:36:31,785][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 4 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 281.5491638183594
+Eval_StdReturn : 31.0296688079834
+Eval_MaxReturn : 407.9363098144531
+Eval_MinReturn : 227.4387664794922
+Eval_AverageEpLen : 52.65625
+Train_AverageReturn : 279.109375
+Train_StdReturn : 0.0
+Train_MaxReturn : 279.109375
+Train_MinReturn : 279.109375
+Train_AverageEpLen : 54.0
+Train_EnvstepsSoFar : 186
+TimeSinceStart : 100.11089205741882
+Training Loss : 0.2538689970970154
+[2022-02-14 18:36:52,244][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 5 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 284.16265869140625
+Eval_StdReturn : 46.734169006347656
+Eval_MaxReturn : 458.80853271484375
+Eval_MinReturn : 194.19419860839844
+Eval_AverageEpLen : 54.66304347826087
+Train_AverageReturn : 293.1302490234375
+Train_StdReturn : 0.0
+Train_MaxReturn : 293.1302490234375
+Train_MinReturn : 293.1302490234375
+Train_AverageEpLen : 55.0
+Train_EnvstepsSoFar : 241
+TimeSinceStart : 120.18884658813477
+Training Loss : 0.32614248991012573
+[2022-02-14 18:37:12,322][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 6 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 324.12469482421875
+Eval_StdReturn : 69.95848846435547
+Eval_MaxReturn : 565.3314819335938
+Eval_MinReturn : 224.31402587890625
+Eval_AverageEpLen : 60.65060240963855
+Train_AverageReturn : 329.927001953125
+Train_StdReturn : 0.0
+Train_MaxReturn : 329.927001953125
+Train_MinReturn : 329.927001953125
+Train_AverageEpLen : 62.0
+Train_EnvstepsSoFar : 303
+TimeSinceStart : 139.924311876297
+Training Loss : 0.2948746979236603
+[2022-02-14 18:37:32,057][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 7 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 311.10723876953125
+Eval_StdReturn : 73.57574462890625
+Eval_MaxReturn : 657.9120483398438
+Eval_MinReturn : 203.45167541503906
+Eval_AverageEpLen : 59.082352941176474
+Train_AverageReturn : 360.806884765625
+Train_StdReturn : 0.0
+Train_MaxReturn : 360.806884765625
+Train_MinReturn : 360.806884765625
+Train_AverageEpLen : 64.0
+Train_EnvstepsSoFar : 367
+TimeSinceStart : 159.56483721733093
+Training Loss : 0.34813547134399414
+[2022-02-14 18:37:51,698][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 8 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 305.5201416015625
+Eval_StdReturn : 29.4421443939209
+Eval_MaxReturn : 399.1166076660156
+Eval_MinReturn : 240.70140075683594
+Eval_AverageEpLen : 56.51685393258427
+Train_AverageReturn : 286.6914367675781
+Train_StdReturn : 0.0
+Train_MaxReturn : 286.6914367675781
+Train_MinReturn : 286.6914367675781
+Train_AverageEpLen : 55.0
+Train_EnvstepsSoFar : 422
+TimeSinceStart : 179.21724224090576
+Training Loss : 0.3632345497608185
+[2022-02-14 18:38:11,350][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+
+
+********** Iteration 9 ************
+
+Collecting data to be used for training...
+
+Relabelling collected observations with labels from an expert policy...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 309.0292663574219
+Eval_StdReturn : 30.545854568481445
+Eval_MaxReturn : 394.1289978027344
+Eval_MinReturn : 243.92648315429688
+Eval_AverageEpLen : 57.15909090909091
+Train_AverageReturn : 311.051513671875
+Train_StdReturn : 0.0
+Train_MaxReturn : 311.051513671875
+Train_MinReturn : 311.051513671875
+Train_AverageEpLen : 58.0
+Train_EnvstepsSoFar : 480
+TimeSinceStart : 198.91408395767212
+Training Loss : 0.41189172863960266
+[2022-02-14 18:38:31,047][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 10344.517578125
+Done logging...
+
+
+
+Saving agent params
+returns:  None
+
+======== GPU REPORT ========
+
+==============NVSMI LOG==============
+
+Timestamp                                 : Mon Feb 14 18:38:31 2022
+Driver Version                            : 460.106.00
+CUDA Version                              : 11.2
+
+Attached GPUs                             : 1
+GPU 00000000:82:00.0
+    Accounting Mode                       : Enabled
+    Accounting Mode Buffer Size           : 4000
+    Accounted Processes
+        Process ID                        : 28332
+            GPU Utilization               : 13 %
+            Memory Utilization            : 0 %
+            Max memory usage              : 1397 MiB
+            Time                          : 222754 ms
+            Is Running                    : 0
+
+Mon Feb 14 18:38:31 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.106.00   Driver Version: 460.106.00   CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-PCIE...  Off  | 00000000:82:00.0 Off |                    0 |
+| N/A   34C    P0    36W / 250W |      0MiB / 16160MiB |     27%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+

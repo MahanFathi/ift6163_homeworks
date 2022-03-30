@@ -1,0 +1,6 @@
+- exp_name=q5_ddpg_hard_lr0.001
+- rl_alg=ddpg
+- env_name=HalfCheetah-v2
+- atari=false
+- n_iter=100000
+- learning_rate=0.001

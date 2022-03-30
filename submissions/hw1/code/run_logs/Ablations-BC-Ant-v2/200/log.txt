@@ -1,0 +1,123 @@
+[=== Module python/3.7 loaded ===]
+[=== Module cudatoolkit/10.2 loaded ===]
+[=== Module cuda/10.2/cudnn/8.0 loaded ===]
+[=== Module mujoco/2.0 loaded ===]
+[=== Module mujoco-py/2.0 loaded ===]
+
+The following have been reloaded with a version change:
+  1) gcc/7.4.0 => gcc/9.3.0
+
+env:
+  expert_policy_file: ./ift6163/policies/experts/Ant.pkl
+  expert_data: ./ift6163/expert_data/expert_data_Ant-v2.pkl
+  exp_name: Ablations-BC-Ant-v2
+  env_name: Ant-v2
+  max_episode_length: 200
+  render: false
+alg:
+  num_rollouts: 5
+  do_dagger: false
+  num_agent_train_steps_per_iter: 5000
+  n_iter: 1
+  batch_size: 1024
+  eval_batch_size: 5000
+  train_batch_size: 100
+  n_layers: 3
+  network_width: 64
+  learning_rate: 0.005
+  max_replay_buffer_size: 100000.0
+  use_gpu: true
+  which_gpu: 0
+  discrete: false
+  ac_dim: 0
+  ob_dim: 0
+logging:
+  video_log_freq: -1
+  scalar_log_freq: 1
+  save_params: true
+  random_seed: 1234
+
+Command Dir: /home/mila/m/mahan.fathi/UC/ift6163_homeworks/hw1/outputs/2022-02-14/18-11-10
+params:  {'_metadata': ContainerMetadata(ref_type=typing.Any, object_type=None, optional=True, key=None, flags={'struct': True}, flags_root=False, resolver_cache=defaultdict(<class 'dict'>, {'now': {('%Y-%m-%d',): '2022-02-14', ('%H-%M-%S',): '18-11-10'}}), key_type=typing.Any, element_type=typing.Any), '_parent': None, '_flags_cache': {'struct': True}, '_content': {'env': {'expert_policy_file': './ift6163/policies/experts/Ant.pkl', 'expert_data': './ift6163/expert_data/expert_data_Ant-v2.pkl', 'exp_name': 'Ablations-BC-Ant-v2', 'env_name': 'Ant-v2', 'max_episode_length': 200, 'render': False}, 'alg': {'num_rollouts': 5, 'do_dagger': False, 'num_agent_train_steps_per_iter': 5000, 'n_iter': 1, 'batch_size': 1024, 'eval_batch_size': 5000, 'train_batch_size': 100, 'n_layers': 3, 'network_width': 64, 'learning_rate': 0.005, 'max_replay_buffer_size': 100000.0, 'use_gpu': True, 'which_gpu': 0, 'discrete': False, 'ac_dim': 0, 'ob_dim': 0}, 'logging': {'video_log_freq': -1, 'scalar_log_freq': 1, 'save_params': True, 'random_seed': 1234}}}
+params2:  {'env': {'expert_policy_file': './ift6163/policies/experts/Ant.pkl', 'expert_data': './ift6163/expert_data/expert_data_Ant-v2.pkl', 'exp_name': 'Ablations-BC-Ant-v2', 'env_name': 'Ant-v2', 'max_episode_length': 200, 'render': False}, 'alg': {'num_rollouts': 5, 'do_dagger': False, 'num_agent_train_steps_per_iter': 5000, 'n_iter': 1, 'batch_size': 1024, 'eval_batch_size': 5000, 'train_batch_size': 100, 'n_layers': 3, 'network_width': 64, 'learning_rate': 0.005, 'max_replay_buffer_size': 100000.0, 'use_gpu': True, 'which_gpu': 0, 'discrete': False, 'ac_dim': 0, 'ob_dim': 0}, 'logging': {'video_log_freq': -1, 'scalar_log_freq': 1, 'save_params': True, 'random_seed': 1234, 'logdir': '/home/mila/m/mahan.fathi/UC/ift6163_homeworks/hw1/outputs/2022-02-14/18-11-10/data/q1_Ablations-BC-Ant-v2_Ant-v2_14-02-2022_18-11-10'}}
+params:  3
+########################
+logging outputs to  /home/mila/m/mahan.fathi/UC/ift6163_homeworks/hw1/outputs/2022-02-14/18-11-10/data/q1_Ablations-BC-Ant-v2_Ant-v2_14-02-2022_18-11-10
+########################
+Using GPU id 0
+Loading expert policy from... ../../.././ift6163/policies/experts/Ant.pkl
+obs (1, 111) (1, 111)
+Done restoring expert policy...
+
+
+********** Iteration 0 ************
+
+Collecting data to be used for training...
+
+Training agent using sampled data from replay buffer...
+
+Beginning logging procedure...
+
+Collecting data for eval...
+Eval_AverageReturn : 881.1517944335938
+Eval_StdReturn : 43.98711395263672
+Eval_MaxReturn : 1001.830078125
+Eval_MinReturn : 791.3399047851562
+Eval_AverageEpLen : 200.0
+Train_AverageReturn : 4713.6533203125
+Train_StdReturn : 12.196533203125
+Train_MaxReturn : 4725.849609375
+Train_MinReturn : 4701.45654296875
+Train_AverageEpLen : 1000.0
+Train_EnvstepsSoFar : 0
+TimeSinceStart : 20.476736307144165
+Training Loss : -2.4084603786468506
+[2022-02-14 18:11:53,089][root][INFO] - Summary name Training Loss is illegal; using Training_Loss instead.
+Initial_DataCollection_AverageReturn : 4713.6533203125
+Done logging...
+
+
+
+Saving agent params
+returns:  None
+
+======== GPU REPORT ========
+
+==============NVSMI LOG==============
+
+Timestamp                                 : Mon Feb 14 18:11:53 2022
+Driver Version                            : 460.106.00
+CUDA Version                              : 11.2
+
+Attached GPUs                             : 1
+GPU 00000000:02:00.0
+    Accounting Mode                       : Enabled
+    Accounting Mode Buffer Size           : 4000
+    Accounted Processes
+        Process ID                        : 21083
+            GPU Utilization               : 6 %
+            Memory Utilization            : 0 %
+            Max memory usage              : 1397 MiB
+            Time                          : 43465 ms
+            Is Running                    : 0
+
+Mon Feb 14 18:11:53 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.106.00   Driver Version: 460.106.00   CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-PCIE...  Off  | 00000000:02:00.0 Off |                    0 |
+| N/A   33C    P0    39W / 250W |      0MiB / 16160MiB |     27%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+

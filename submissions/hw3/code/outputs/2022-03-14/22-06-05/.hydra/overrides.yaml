@@ -1,0 +1,14 @@
+- env_name=cheetah-ift6163-v0
+- n_iter=100
+- computation_graph_args.n_layers=2
+- computation_graph_args.size=32
+- estimate_advantage_args.discount=0.95
+- train_batch_size=5000
+- batch_size=5000
+- batch_size_initial=5000
+- computation_graph_args.learning_rate=0.01
+- estimate_advantage_args.nn_baseline=true
+- estimate_advantage_args.standardize_advantages=true
+- exp_name=q8_cheetah_n500-arch1x32
+- estimate_advantage_args.reward_to_go=true
+- rl_alg=dyna

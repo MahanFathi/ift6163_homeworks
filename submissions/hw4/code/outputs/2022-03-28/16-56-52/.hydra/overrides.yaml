@@ -1,0 +1,5 @@
+- exp_name=q4_ddpg
+- rl_alg=ddpg
+- env_name=InvertedPendulum-v2
+- atari=false
+- n_iter=1000000

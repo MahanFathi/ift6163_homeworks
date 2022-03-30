@@ -1,0 +1,12 @@
+- env_name=CartPole-v0
+- n_iter=100
+- train_batch_size=1000
+- batch_size=1000
+- batch_size_initial=1000
+- estimate_advantage_args.nn_baseline=true
+- estimate_advantage_args.standardize_advantages=true
+- exp_name=q6_ac_1_100
+- estimate_advantage_args.reward_to_go=true
+- rl_alg=ac
+- computation_graph_args.num_target_updates=1
+- computation_graph_args.num_grad_steps_per_target_update=100

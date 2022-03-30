@@ -1,0 +1,7 @@
+- exp_name=q6_td3_rho0.3
+- rl_alg=td3
+- env_name=InvertedPendulum-v2
+- atari=false
+- n_iter=30000
+- learning_rate=0.001
+- td3_target_policy_noise=0.3

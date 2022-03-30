@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+python run\PYGZus{}hw4.py \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q5\PYGZus{}ddpg\PYGZus{}hard\PYGZus{}lr0.001\PYGZus{}uf10  \PYG{n+nv}{rl\PYGZus{}alg}\PYG{o}{=}ddpg \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}HalfCheetah\PYGZhy{}v2 \PYG{n+nv}{atari}\PYG{o}{=}\PYG{n+nb}{false} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{100000} \PYG{n+nv}{learning\PYGZus{}rate}\PYG{o}{=}\PYG{l+m}{0}.001 \PYG{n+nv}{policy\PYGZus{}update\PYGZus{}frequency}\PYG{o}{=}\PYG{l+m}{10}
+python run\PYGZus{}hw4.py \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q5\PYGZus{}ddpg\PYGZus{}hard\PYGZus{}lr0.001\PYGZus{}uf100 \PYG{n+nv}{rl\PYGZus{}alg}\PYG{o}{=}ddpg \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}HalfCheetah\PYGZhy{}v2 \PYG{n+nv}{atari}\PYG{o}{=}\PYG{n+nb}{false} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{100000} \PYG{n+nv}{learning\PYGZus{}rate}\PYG{o}{=}\PYG{l+m}{0}.001 \PYG{n+nv}{policy\PYGZus{}update\PYGZus{}frequency}\PYG{o}{=}\PYG{l+m}{100}
+\end{Verbatim}

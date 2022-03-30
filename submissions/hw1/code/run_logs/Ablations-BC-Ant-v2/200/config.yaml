@@ -1,0 +1,34 @@
+env: 
+  expert_policy_file: ./ift6163/policies/experts/Ant.pkl # Relative to where you're running this script from 
+  expert_data: ./ift6163/expert_data/expert_data_Ant-v2.pkl  # Relative to where you're running this script from
+  exp_name: "Ablations-BC-Ant-v2"
+  env_name: Ant-v2 # choices are [Ant-v2, Humanoid-v2, Walker2d-v2, HalfCheetah-v2, Hopper-v2]
+  max_episode_length: 200
+  render: false
+  
+alg:
+  num_rollouts: 5
+  do_dagger: false
+  num_agent_train_steps_per_iter: 5000 # number of gradient steps for training policy (per iter in n_iter)
+  n_iter: 1
+  batch_size: 1024 # training data collected (in the env) during each iteration
+  eval_batch_size: 5000 # eval data collected (in the env) for logging metrics
+  train_batch_size: 100 # number of sampled data points to be used per gradient/train step
+  n_layers: 3 # Network depths
+  network_width: 64 # The width of the network layers
+  learning_rate: 5e-3 # THe learning rate for BC
+  max_replay_buffer_size: 1e5 ## Size of the replay buffer
+  use_gpu: true
+  which_gpu: 0 # The index for the GPU (the computer you use may have more than one)
+  discrete: False
+  ac_dim: 0 ## This will be overridden in the code
+  ob_dim: 0 ## This will be overridden in the code
+
+logging:
+  video_log_freq: -1 # How often to generate a video to log/
+  scalar_log_freq: 1 # How often to log training information and run evaluation during training.
+  save_params: true # Should the parameters given to the script be saved? (Always...)
+  random_seed: 1234
+  
+  
+

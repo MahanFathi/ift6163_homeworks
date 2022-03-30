@@ -1,0 +1,29 @@
+env:
+  expert_policy_file: ./ift6163/policies/experts/Humanoid.pkl
+  expert_data: ./ift6163/expert_data/expert_data_Humanoid-v2.pkl
+  exp_name: DAgger-Humanoid-v2
+  env_name: Humanoid-v2
+  max_episode_length: 1000
+  render: false
+alg:
+  num_rollouts: 5
+  do_dagger: true
+  num_agent_train_steps_per_iter: 5000
+  n_iter: 10
+  batch_size: 1024
+  eval_batch_size: 5000
+  train_batch_size: 100
+  n_layers: 3
+  network_width: 64
+  learning_rate: 0.005
+  max_replay_buffer_size: 100000.0
+  use_gpu: true
+  which_gpu: 0
+  discrete: false
+  ac_dim: 0
+  ob_dim: 0
+logging:
+  video_log_freq: -1
+  scalar_log_freq: 1
+  save_params: true
+  random_seed: 1234

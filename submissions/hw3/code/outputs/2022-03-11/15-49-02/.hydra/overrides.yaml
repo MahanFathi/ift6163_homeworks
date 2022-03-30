@@ -1,0 +1,7 @@
+- env_name=CartPole-v0
+- n_iter=100
+- batch_size=5000
+- estimate_advantage_args.standardize_advantages=false
+- exp_name=q1_lb_rtg_dsa
+- estimate_advantage_args.reward_to_go=true
+- rl_alg=reinforce

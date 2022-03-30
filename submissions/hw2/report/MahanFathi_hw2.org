@@ -1,0 +1,105 @@
+#+STARTUP: align
+#+TITLE: Homework #2
+#+OPTIONS: toc:nil
+
+* Problem 1
+The model error plots:
+
+#+CAPTION: Experiment: ~cheetah_n5_arch2x250~
+[[./hw2_q1_cheetah_n5_arch2x250_cheetah-ift6163-v0_17-02-2022_21-24-04/itr_0_predictions.png]]
+
+#+CAPTION: Experiment: ~cheetah_n500_arch1x32~
+[[./hw2_q1_cheetah_n500_arch1x32_cheetah-ift6163-v0_17-02-2022_21-23-37/itr_0_predictions.png]]
+
+#+CAPTION: Experiment: ~cheetah_n500_arch2x250~
+[[./hw2_q1_cheetah_n500_arch2x250_cheetah-ift6163-v0_17-02-2022_21-24-36/itr_0_predictions.png]]
+
+The models corresponding to the last plot seem to be performing best. The first is trained only for a few number of iterations, i.e. 5. The second one has low network capacity, which apparently is not able to capture all the nuances of the underlying dynamics of the environment.
+
+#+begin_export latex
+  \clearpage
+#+end_export
+
+* Problem 2
+
+#+CAPTION: Problem 2 results
+| /               |                    < |                     < |
+|-----------------+----------------------+-----------------------|
+| ~cheetah~       | ~Eval_AverageReturn~ | ~Train_AverageReturn~ |
+|-----------------+----------------------+-----------------------|
+| ~AverageReturn~ |               -32.15 |               -167.19 |
+|-----------------+----------------------+-----------------------|
+
+#+CAPTION: Problem 2 plot
+[[./q2.png]]
+
+#+begin_export latex
+  \clearpage
+#+end_export
+
+* Problem 3
+Performance plots:
+
+#+CAPTION: Training loss for ~q3_cheetah~
+[[./hw2_q3_cheetah_cheetah-ift6163-v0_17-02-2022_22-07-54/itr_0_losses.png]]
+
+#+CAPTION: Model errors for ~q3_cheetah~
+[[./hw2_q3_cheetah_cheetah-ift6163-v0_17-02-2022_22-07-54/itr_0_predictions.png]]
+
+#+CAPTION: Training loss for ~q3_reacher~
+[[./hw2_q3_reacher_reacher-ift6163-v0_17-02-2022_21-58-46/itr_0_losses.png]]
+
+#+CAPTION: Model errors for ~q3_reacher~
+[[./hw2_q3_reacher_reacher-ift6163-v0_17-02-2022_21-58-46/itr_0_predictions.png]]
+
+#+CAPTION: Training loss for ~q3_obstacles~
+[[./hw2_q3_obstacles_obstacles-ift6163-v0_17-02-2022_21-59-34/itr_0_losses.png]]
+
+#+CAPTION: Model errors for ~q3_obstacles~
+[[./hw2_q3_obstacles_obstacles-ift6163-v0_17-02-2022_21-59-34/itr_0_predictions.png]]
+
+#+begin_export latex
+  \clearpage
+#+end_export
+
+* Problem 4
+** Ensembles
+#+CAPTION: Ablation with regards to the number of ensembles
+[[./ensembles.png]]
+
+
+#+CAPTION: ~Eval_AverageReturn~ with different number of ensembles
+[[./ensembles_eval.png]]
+
+#+begin_export latex
+  \clearpage
+#+end_export
+
+** MPC # Action Sequences
+#+CAPTION: Ablation with regards to the number sequence candidates
+[[./numseqs.png]]
+
+#+CAPTION: ~Eval_AverageReturn~ with different number of sequence candidates
+[[./numseqs_eval.png]]
+
+#+begin_export latex
+  \clearpage
+#+end_export
+
+** Horizon
+
+#+CAPTION: Ablation with regards to the planning horizon
+[[./horizons.png]]
+
+#+CAPTION: ~Eval_AverageReturn~ with different horizons.
+[[./horizon_eval.png]]
+
+
+#+begin_export latex
+  \clearpage
+#+end_export
+
+* Problem 5
+
+#+CAPTION: CEM compared to random actions. CEM clearly outperforms random sampling method, since directs the search using some sort of a heuristic. Moreover, more iterations in CEM leads to more accurate results and a thorough search over the planning space.
+[[./cem.png]]

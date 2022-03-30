@@ -1,0 +1,9 @@
+- exp_name=q7_td3_hard_lr0.001_uf10_rho0.1_shape3
+- rl_alg=td3
+- env_name=HalfCheetah-v2
+- atari=false
+- n_iter=200000
+- learning_rate=0.001
+- policy_update_frequency=10
+- td3_target_policy_noise=0.1
+- n_layers_critic=3

@@ -1,0 +1,17 @@
+- env_name=LunarLanderContinuous-v2
+- n_iter=100
+- ep_len=1000
+- computation_graph_args.n_layers=2
+- computation_graph_args.size=64
+- estimate_advantage_args.discount=0.99
+- batch_size=40000
+- train_batch_size=40000
+- batch_size_initial=40000
+- computation_graph_args.learning_rate=0.005
+- estimate_advantage_args.nn_baseline=true
+- estimate_advantage_args.standardize_advantages=false
+- exp_name=q3_b100000_r0.003
+- estimate_advantage_args.reward_to_go=true
+- rl_alg=reinforce
+- estimate_advantage_args.gae_lambda=false
+- seed=7

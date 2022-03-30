@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nv}{batch\PYGZus{}size}\PYG{o}{=}\PYG{l+m}{5000}
+python run\PYGZus{}hw3.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}cheetah\PYGZhy{}ift6163\PYGZhy{}v0 \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{100} \PYG{l+s+se}{\PYGZbs{}}
+    computation\PYGZus{}graph\PYGZus{}args.n\PYGZus{}layers\PYG{o}{=}\PYG{l+m}{2} computation\PYGZus{}graph\PYGZus{}args.size\PYG{o}{=}\PYG{l+m}{32} \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.discount\PYG{o}{=}\PYG{l+m}{0}.95 \PYG{n+nv}{train\PYGZus{}batch\PYGZus{}size}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{batch\PYGZus{}size}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{n+nv}{batch\PYGZus{}size\PYGZus{}initial}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{l+s+se}{\PYGZbs{}}
+    computation\PYGZus{}graph\PYGZus{}args.learning\PYGZus{}rate\PYG{o}{=}\PYG{l+m}{0}.01 \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.nn\PYGZus{}baseline\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.standardize\PYGZus{}advantages\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}q8\PYGZus{}cheetah\PYGZus{}n500\PYGZhy{}arch1x32\PYGZdq{}} \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.reward\PYGZus{}to\PYGZus{}go\PYG{o}{=}\PYG{n+nb}{true} \PYG{n+nv}{rl\PYGZus{}alg}\PYG{o}{=}dyna
+
+\PYG{n+nv}{batch\PYGZus{}size}\PYG{o}{=}\PYG{l+m}{2000}
+python run\PYGZus{}hw3.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}cheetah\PYGZhy{}ift6163\PYGZhy{}v0 \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{100} \PYG{l+s+se}{\PYGZbs{}}
+    computation\PYGZus{}graph\PYGZus{}args.n\PYGZus{}layers\PYG{o}{=}\PYG{l+m}{2} computation\PYGZus{}graph\PYGZus{}args.size\PYG{o}{=}\PYG{l+m}{32} \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.discount\PYG{o}{=}\PYG{l+m}{0}.95 \PYG{n+nv}{train\PYGZus{}batch\PYGZus{}size}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{batch\PYGZus{}size}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{n+nv}{batch\PYGZus{}size\PYGZus{}initial}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{l+s+se}{\PYGZbs{}}
+    computation\PYGZus{}graph\PYGZus{}args.learning\PYGZus{}rate\PYG{o}{=}\PYG{l+m}{0}.01 \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.nn\PYGZus{}baseline\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.standardize\PYGZus{}advantages\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}q8\PYGZus{}cheetah\PYGZus{}n500\PYGZhy{}arch1x32\PYGZdq{}} \PYG{l+s+se}{\PYGZbs{}}
+    estimate\PYGZus{}advantage\PYGZus{}args.reward\PYGZus{}to\PYGZus{}go\PYG{o}{=}\PYG{n+nb}{true} \PYG{n+nv}{rl\PYGZus{}alg}\PYG{o}{=}dyna
+\end{Verbatim}

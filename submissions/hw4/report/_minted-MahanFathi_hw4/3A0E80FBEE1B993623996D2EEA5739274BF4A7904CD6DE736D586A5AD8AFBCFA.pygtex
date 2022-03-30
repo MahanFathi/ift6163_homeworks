@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+python run\PYGZus{}hw4.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}LunarLander\PYGZhy{}v3 \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q2\PYGZus{}dqn\PYGZus{}1 \PYG{n+nv}{seed}\PYG{o}{=}\PYG{l+m}{1} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{1000000} \PYG{n+nv}{double\PYGZus{}q}\PYG{o}{=}null
+
+python run\PYGZus{}hw4.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}LunarLander\PYGZhy{}v3 \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q2\PYGZus{}dqn\PYGZus{}2 \PYG{n+nv}{seed}\PYG{o}{=}\PYG{l+m}{2} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{1000000} \PYG{n+nv}{double\PYGZus{}q}\PYG{o}{=}null
+
+python run\PYGZus{}hw4.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}LunarLander\PYGZhy{}v3 \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q2\PYGZus{}dqn\PYGZus{}3 \PYG{n+nv}{seed}\PYG{o}{=}\PYG{l+m}{3} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{1000000} \PYG{n+nv}{double\PYGZus{}q}\PYG{o}{=}null
+
+
+python run\PYGZus{}hw4.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}LunarLander\PYGZhy{}v3 \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q2\PYGZus{}doubledqn\PYGZus{}1 \PYG{n+nv}{seed}\PYG{o}{=}\PYG{l+m}{1} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{200000}
+
+python run\PYGZus{}hw4.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}LunarLander\PYGZhy{}v3 \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q2\PYGZus{}doubledqn\PYGZus{}2 \PYG{n+nv}{seed}\PYG{o}{=}\PYG{l+m}{2} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{200000}
+
+python run\PYGZus{}hw4.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}LunarLander\PYGZhy{}v3 \PYG{l+s+se}{\PYGZbs{}}
+    \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}q2\PYGZus{}doubledqn\PYGZus{}3 \PYG{n+nv}{seed}\PYG{o}{=}\PYG{l+m}{3} \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{200000}
+\end{Verbatim}

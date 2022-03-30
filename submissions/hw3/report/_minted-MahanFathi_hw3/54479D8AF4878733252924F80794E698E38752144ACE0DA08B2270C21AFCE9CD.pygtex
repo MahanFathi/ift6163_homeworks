@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}batch\PYGZus{}size=1000}
+\PYG{k}{for} ntu \PYG{k}{in} \PYG{l+m}{1} \PYG{l+m}{10} \PYG{l+m}{100}\PYG{p}{;} \PYG{k}{do}
+    \PYG{k}{for} ngsptu \PYG{k}{in} \PYG{l+m}{1} \PYG{l+m}{10} \PYG{l+m}{100}\PYG{p}{;} \PYG{k}{do}
+        python run\PYGZus{}hw3.py \PYG{n+nv}{env\PYGZus{}name}\PYG{o}{=}CartPole\PYGZhy{}v0 \PYG{n+nv}{n\PYGZus{}iter}\PYG{o}{=}\PYG{l+m}{100} \PYG{n+nv}{train\PYGZus{}batch\PYGZus{}size}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{l+s+se}{\PYGZbs{}}
+            \PYG{n+nv}{batch\PYGZus{}size}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{n+nv}{batch\PYGZus{}size\PYGZus{}initial}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}batch\PYGZus{}size} \PYG{l+s+se}{\PYGZbs{}}
+            estimate\PYGZus{}advantage\PYGZus{}args.nn\PYGZus{}baseline\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+            estimate\PYGZus{}advantage\PYGZus{}args.standardize\PYGZus{}advantages\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+            \PYG{n+nv}{exp\PYGZus{}name}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}q6\PYGZus{}ac\PYGZus{}}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nv}{ntu}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZus{}}\PYG{l+s+si}{\PYGZdl{}\PYGZob{}}\PYG{n+nv}{ngsptu}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}} estimate\PYGZus{}advantage\PYGZus{}args.reward\PYGZus{}to\PYGZus{}go\PYG{o}{=}\PYG{n+nb}{true} \PYG{l+s+se}{\PYGZbs{}}
+            \PYG{n+nv}{rl\PYGZus{}alg}\PYG{o}{=}ac \PYG{l+s+se}{\PYGZbs{}}
+            computation\PYGZus{}graph\PYGZus{}args.num\PYGZus{}target\PYGZus{}updates\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}ntu} \PYG{l+s+se}{\PYGZbs{}}
+            computation\PYGZus{}graph\PYGZus{}args.num\PYGZus{}grad\PYGZus{}steps\PYGZus{}per\PYGZus{}target\PYGZus{}update\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}ngsptu}
+    \PYG{k}{done}
+\PYG{k}{done}
+\end{Verbatim}
