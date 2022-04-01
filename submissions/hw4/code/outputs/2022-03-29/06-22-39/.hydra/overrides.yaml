@@ -1,8 +1,0 @@
-- exp_name=q6_td3_rho0.1_shape2
-- rl_alg=td3
-- env_name=InvertedPendulum-v2
-- atari=false
-- n_iter=100000
-- learning_rate=0.001
-- td3_target_policy_noise=0.1
-- n_layers_critic=2

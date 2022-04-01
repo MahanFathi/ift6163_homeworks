@@ -1,4 +1,4 @@
-% Created 2022-03-30 Wed 19:00
+% Created 2022-03-31 Thu 20:58
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -30,7 +30,7 @@
 \clearpage
 
 \section{Question 1}
-\label{sec:orgee87c1d}
+\label{sec:orgf55f7cf}
 
 \begin{figure}[htbp]
 \centering
@@ -48,7 +48,7 @@ python run_hw4.py exp_name=q1 env_name=MsPacman-v0 n_iter=10000000
 \clearpage
 
 \section{Question 2}
-\label{sec:orgcfb0e8a}
+\label{sec:org87869f4}
 The plummet after reaching a total return of 150 has already been alluded to in the problem statement, and is the case also here.
 
 \begin{figure}[htbp]
@@ -90,7 +90,7 @@ python run_hw4.py env_name=LunarLander-v3 \
 \clearpage
 
 \section{Question 3}
-\label{sec:org795c529}
+\label{sec:org834ab6d}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{./3.png}
@@ -117,7 +117,7 @@ Here we have chosen \texttt{params['gamma']} as our ablation variable. The reaso
 
 
 \section{Question 4}
-\label{sec:org04f01b3}
+\label{sec:org40ff35e}
 
 \begin{figure}[htbp]
 \centering
@@ -157,7 +157,7 @@ python run_hw4.py exp_name=q4_ddpg_uf100 rl_alg=ddpg \
 
 
 \section{Question 5}
-\label{sec:org5cee36f}
+\label{sec:org7d240b3}
 
 \begin{figure}[htbp]
 \centering
@@ -165,7 +165,7 @@ python run_hw4.py exp_name=q4_ddpg_uf100 rl_alg=ddpg \
 \caption{\textbf{Q5} DDPG for \texttt{HalfCheeah-v2}, with two different learning schedule}
 \end{figure}
 
-DDPG without the exploration noise during data collection does not seem to be working readily out-of-the-box for the \texttt{HalfCheeah-v2} environment, however, the good news is that TD3 is successful in doing so. Take a look at QuestionQeustion \ref{sec:orgb7ed1cd}.
+DDPG manages to solve this task and as you can see, given that
 
 \begin{minted}[]{bash}
 python run_hw4.py exp_name=q5_ddpg_hard_lr0.001_uf10  rl_alg=ddpg \
@@ -181,7 +181,7 @@ python run_hw4.py exp_name=q5_ddpg_hard_lr0.001_uf100 rl_alg=ddpg \
 
 
 \section{Question 6}
-\label{sec:orge0c69cb}
+\label{sec:orgc5786a7}
 
 \begin{figure}[htbp]
 \centering
@@ -218,7 +218,7 @@ python run_hw4.py exp_name=q6_td3_rho0.1_shape2 rl_alg=td3 \
 
 
 \section{Question 7}
-\label{sec:orgb7ed1cd}
+\label{sec:org40d73b1}
 
 \begin{figure}[htbp]
 \centering
@@ -237,6 +237,8 @@ python run_hw4.py exp_name=q7_td3_hard_lr0.0005_uf2_rho0.1_shape3 \
     env_name=HalfCheetah-v2 atari=false n_iter=1000000 \
     learning_rate=0.0005 policy_update_frequency=2 td3_target_policy_noise=0.1
 \end{minted}
+
+There is a huge difference between the performance of DDPG and TD3 in the task of \texttt{HalfCheetah-v2}, both in terms of the sample efficiency and in the overall pattern of learning (learning curves). This difference stems from the smoothing property of the noise added on top of the actions sampled from the policy, when forming the Q-network target update. This trick was introduces by TD3 to prevent the policy network to come up with hacky ways to exploit the structure of the imperfect Q-network, however, here this trick is somewhat unnecessary, as it introduces too much bias and apparently the Q-network is already in good shape in the context of this specific task. DDPG seems to be more sample efficient, at least in comparison with TD3 with \(\rho = 0.1\), i.e. the noise on top of target actions. Admittedly, TD3 is not tuned to the best of its abilities here, and would be jumping to conclusions to dismiss it as inferior to DDPG, solely based on this experiment.
 
 \clearpage
 \end{document}
