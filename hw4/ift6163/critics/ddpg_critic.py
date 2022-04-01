@@ -67,6 +67,7 @@ class DDPGCritic(BaseCritic):
         self.actor_target = copy.deepcopy(actor)
 
         self.polyak_rho = hparams['polyak_avg']
+        self.td3_target_policy_noise = hparams['td3_target_policy_noise']
 
     def update(self, ob_no, ac_na, next_ob_no, reward_n, terminal_n):
         """

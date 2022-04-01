@@ -41,7 +41,10 @@ class TD3Critic(DDPGCritic):
 
         # TODO compute the Q-values from the target network
         ## Hint: you will need to use the target policy
-        q_tp1_values = self.q_net_target(next_ob_no, torch.tanh(self.actor_target(next_ob_no))).squeeze()
+        # NOTE: main difference b/w ddpg and td3
+        actions = torch.tanh(self.actor_target(next_ob_no))
+        actions += torch.normal(torch.zeros_like(actions), torch.ones_like(actions) * self.td3_target_policy_noise)
+        q_tp1_values = self.q_net_target(next_ob_no, actions).squeeze()
 
         # TODO compute targets for minimizing Bellman error
         # HINT: as you saw in lecture, this would be:
